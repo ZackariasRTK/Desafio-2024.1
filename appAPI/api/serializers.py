@@ -6,4 +6,4 @@ from ..models import acharIP
 class IPSerializer(ModelSerializer):
     class Meta: 
         model = acharIP
-        fields = ['id','ip','','cidade','regiao','paisC','paisN', 'capital']
+        fields = ['id','ip','cidade','regiao','paisC','paisN', 'capital']
