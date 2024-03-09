@@ -12,13 +12,13 @@ class IPViewset(ModelViewSet):
     queryset = acharIP.objects.all()
 
     def pegarIP(self, request):
-        ip = request.data.get('ip','000000000000')
+        ip = request.data.get('ip','')
 
-        linkIP = (f'https://ipapi.co/{ip}/json/') # link com o ip desejável
+        linkIP = (f'https://ipapi.co/{ip}/json/') # Cria uma url da API externa usando o ip fornecido
 
-        requisicao = requests.get(linkIP)  # meio para acessar o link
+        requisicao = requests.get(linkIP)  # Requisição à API através do link 
 
-        json = requisicao.json()
+        json = requisicao.json() 
 
         ip = json.get('ip','')  # Procura os dados através do método GET
         cidade = json.get('city', '')
@@ -27,7 +27,7 @@ class IPViewset(ModelViewSet):
         paisN = json.get('country_name', '')
         capital = json.get('country_capital','')
 
-        dadosreceb = {     # Guarda os dados
+        dadosreceb = {     # Guarda os dados extraídos
             "ip": f'{ip}',
             "city": f'{cidade}',
             "region": f'{regiao}',
@@ -41,11 +41,9 @@ class IPViewset(ModelViewSet):
 
         if meuSerializer.is_valid():
 
+            # Lê o IP inserido para buscar se o IP já existe no banco de dados
             ipPesquisado = acharIP.objects.filter(ip=ip) 
-
-            # Lê o IP inserido para buscar no banco de dados
-
-            ipPesquisadoExiste = ipPesquisado.exists()        
+            ipPesquisadoExiste = ipPesquisado.exists()     
 
             if ipPesquisadoExiste:
                 return Response({"Aviso!":"Este IP já consta no banco de dados!"}) 
