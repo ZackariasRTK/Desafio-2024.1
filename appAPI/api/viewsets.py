@@ -21,8 +21,6 @@ class IPViewset(ModelViewSet):
         json = requisicao.json()
 
         ip = json.get('ip','')  # Procura os dados através do método GET
-        cidade = json.get('logradouro', '')
-        regiao = json.get('complemento','')
         cidade = json.get('city', '')
         regiao = json.get('region','')
         paisC = json.get('country_code', '')
