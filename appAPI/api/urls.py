@@ -11,4 +11,4 @@ class IPViewset(ModelViewSet):
     serializer_class = IPSerializer
     queryset = acharIP.objects.all()
 
-    
+    from rest_framework.routers import DefaultRouter
